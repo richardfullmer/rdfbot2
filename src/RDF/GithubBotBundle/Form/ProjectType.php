@@ -13,6 +13,7 @@ class ProjectType extends AbstractType
         $builder
             ->add('username')
             ->add('repository')
+            ->add('configuration')
         ;
     }
 

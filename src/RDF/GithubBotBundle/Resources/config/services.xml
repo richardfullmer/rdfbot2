@@ -17,6 +17,17 @@
                 <argument type="constant">Github\Client::AUTH_HTTP_PASSWORD</argument>
             </call>
         </service>
+
+        <service id="rdf_github_bot.builder" class="RDF\GithubBotBundle\Build\Executor">
+            <argument type="service" id="event_dispatcher" />
+            <argument type="service" id="rdf_github_bot.github_client" />
+            <argument type="service" id="doctrine.orm.default_entity_manager" />
+        </service>
+
+        <service id="rdf_github_bot.mq.build_consumer" class="RDF\GithubBotBundle\MessageQueue\BuildConsumer">
+            <argument type="service" id="rdf_github_bot.builder" />
+            <argument type="service" id="doctrine.orm.default_entity_manager" />
+        </service>
     </services>
 
 </container>

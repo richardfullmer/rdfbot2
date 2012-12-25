@@ -15,6 +15,7 @@ class Build
     const STATUS_SUCCESS = 0;
     const STATUS_FAILED = 1;
     const STATUS_ERROR = 2;
+    const STATUS_PENDING = 3;
 
     /**
      * @var integer
@@ -56,42 +57,42 @@ class Build
     /**
      * @var string
      *
-     * @ORM\Column(name="message", type="text")
+     * @ORM\Column(name="message", type="text", nullable=true)
      */
     private $message;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="author", type="string", length=255)
+     * @ORM\Column(name="author", type="string", length=255, nullable=true)
      */
     private $author;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="committer", type="string", length=255)
+     * @ORM\Column(name="committer", type="string", length=255, nullable=true)
      */
     private $committer;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="output", type="text")
+     * @ORM\Column(name="output", type="text", nullable=true)
      */
     private $output;
 
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="finished_at", type="datetime")
+     * @ORM\Column(name="finished_at", type="datetime", nullable=true)
      */
     private $finished_at;
 
     /**
      * @var integer
      *
-     * @ORM\Column(name="duration", type="integer")
+     * @ORM\Column(name="duration", type="integer", nullable=true)
      */
     private $duration;
 
@@ -150,6 +151,25 @@ class Build
     public function getStatus()
     {
         return $this->status;
+    }
+
+    /**
+     * @return string
+     */
+    public function getStatusName()
+    {
+        switch ($this->status) {
+            case self::STATUS_ERROR:
+                return 'error';
+            case self::STATUS_SUCCESS:
+                return 'success';
+            case self::STATUS_FAILED;
+                return 'failed';
+            case self::STATUS_PENDING;
+                return 'pending';
+        }
+
+        return 'unknown';
     }
 
     /**

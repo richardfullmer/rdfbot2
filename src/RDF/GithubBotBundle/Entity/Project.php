@@ -35,6 +35,19 @@ class Project
      */
     private $repository;
 
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="configuration", type="text", nullable=true)
+     */
+    private $configuration;
+
+    /**
+     * @var Build[]
+     *
+     * @ORM\OneToMany(targetEntity="Build", mappedBy="project")
+     */
+    private $builds;
 
     /**
      * Get id
@@ -90,5 +103,29 @@ class Project
     public function getRepository()
     {
         return $this->repository;
+    }
+
+    /**
+     * @return Build[]
+     */
+    public function getBuilds()
+    {
+        return $this->builds;
+    }
+
+    /**
+     * @param string $configuration
+     */
+    public function setConfiguration($configuration)
+    {
+        $this->configuration = $configuration;
+    }
+
+    /**
+     * @return string
+     */
+    public function getConfiguration()
+    {
+        return $this->configuration;
     }
 }

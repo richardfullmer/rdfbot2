@@ -3,12 +3,44 @@
 {% block content_main %}
 <ul id="myTab" class="nav nav-tabs">
     <li class="active"><a href="#current" data-toggle="tab">Current</a></li>
+    <li><a href="#builds" data-toggle="tab">Builds</a></li>
     <li><a href="#branches" data-toggle="tab">Branches</a></li>
     <li><a href="#profile" data-toggle="tab">Pull Requests</a></li>
 </ul>
 <div id="myTabContent" class="tab-content">
     <div class="tab-pane fade in active" id="current">
         <h3>{{ project.username }}/{{ project.repository }}</h3>
+
+        <h4>Build Configuration</h4>
+        <pre>{{ project.configuration }}</pre>
+    </div>
+
+    <div class="tab-pane fade" id="builds">
+        {% if project.builds|length > 0 %}
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Status</th>
+                        <th>Commit</th>
+                        <th>Finished</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for build in project.builds %}
+                    <tr>
+                        <td><a href="{{ path('rdf_githubbot_default_build', {'username': project.username, 'repository': project.repository, 'id': build.id}) }}">#{{ build.id }}</a></td>
+                        <td>{{ build.statusName }}</td>
+
+                        <td>{{ build.commitSha }} ({{ build.branch }})</td>
+                        <td>{{ build.finishedAt|date }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+        <p>No Builds</p>
+        {% endif %}
     </div>
 
     <div class="tab-pane fade" id="branches">
@@ -26,7 +58,7 @@
                     <tr>
                         <td>{{ branch.name }}</td>
                         <td>{{ branch.commit.sha }}</td>
-                        <td><a href="{{ path('rdf_githubbot_default_trigger', {'username': project.username, 'repository': project.repository}) }}">trigger build</a></td>
+                        <td><a href="{{ path('rdf_githubbot_default_trigger', {'username': project.username, 'repository': project.repository, 'branch': branch.name, 'commit': branch.commit.sha}) }}">trigger build</a></td>
                     </tr>
                     {% endfor %}
                 </tbody>

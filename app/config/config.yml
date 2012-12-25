@@ -67,3 +67,25 @@ mopa_bootstrap:
         show_legend: false # default is true
         show_child_legend: false # default is true
         error_type: block # or inline which is default
+
+old_sound_rabbit_mq:
+    connections:
+        default:
+            host: localhost
+            port: 5672
+            user: guest
+            password: guest
+            vhost: /
+
+    producers:
+        build:
+            connection: default
+            exchange_options: {name: 'rdfbot.builds', type: direct}
+
+    consumers:
+        build:
+            connection: default
+            exchange_options: {name: 'rdfbot.builds', type: direct}
+            queue_options: {name: 'build-queue'}
+            callback: rdf_github_bot.mq.build_consumer
+

@@ -3,6 +3,7 @@
 namespace RDF\GithubBotBundle\Controller;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
@@ -57,7 +58,7 @@ class DefaultController extends Controller
     /**
      * @Route("/{username}/{repository}/trigger")
      */
-    public function triggerAction($username, $repository)
+    public function triggerAction(Request $request, $username, $repository)
     {
         $project = $this->getDoctrine()->getRepository('RDFGithubBotBundle:Project')->findOneByUsernameAndRepository($username, $repository);
 
@@ -65,15 +66,17 @@ class DefaultController extends Controller
             throw $this->createNotFoundException("Unknown Project");
         }
 
-        $client = $this->getGithubClient();
+        $branch = $request->get('branch');
+        $commit = $request->get('commit');
 
-        try {
-            $branches = $client->api('repos')->branches($username, $repository);
-        } catch (\RuntimeException $e) {
-            print_r($client->getHttpClient()->getLastRequest());
-        }
+        /** @var $producer \OldSound\RabbitMqBundle\RabbitMq\Producer */
+        $producer = $this->get('old_sound_rabbit_mq.build_producer');
 
-        print_r($branches);
+        $producer->publish(json_encode(array(
+            'project_id' => $project->getId(),
+            'branch' => $branch,
+            'commit' => $commit
+        )));
 
         return new Response('OK');
     }
