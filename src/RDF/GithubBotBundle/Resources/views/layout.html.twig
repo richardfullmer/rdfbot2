@@ -6,6 +6,7 @@
 {% stylesheets filter='cssembed,?yui_css'
     '@MopaBootstrapBundle/Resources/bootstrap/docs/assets/css/bootstrap.css'
     '@MopaBootstrapBundle/Resources/bootstrap/docs/assets/css/bootstrap-responsive.css'
+    '@MopaBootstrapBundle/Resources/bootstrap/docs/assets/js/google-code-prettify/prettify.css'
 %}
 <link href="{{ asset_url }}" type="text/css" rel="stylesheet" media="screen" />
 {% endstylesheets %}
@@ -15,6 +16,10 @@ body {
 }
 </style>
 {% endblock head_style %}
+
+{% block body_tag %}
+<body onload="prettyPrint()" data-spy="scroll">
+{% endblock body_tag %}
 
 {% block page_header %}
 {# Overridden for now... #}
@@ -110,6 +115,7 @@ body {
         '@MopaBootstrapBundle/Resources/bootstrap/docs/assets/js/bootstrap-carousel.js'
         '@MopaBootstrapBundle/Resources/bootstrap/docs/assets/js/bootstrap-typeahead.js'
         '@MopaBootstrapBundle/Resources/public/js/mopabootstrap-collection.js'
+        '@MopaBootstrapBundle/Resources/bootstrap/docs/assets/js/google-code-prettify/prettify.js'
     %}
     <script type="text/javascript" src="{{ asset_url }}"></script>
     {% endjavascripts %}

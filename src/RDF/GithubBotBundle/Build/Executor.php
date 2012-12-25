@@ -70,8 +70,12 @@ class Executor
 
         $repoDir = rtrim($this->buildsDir, '/') . DIRECTORY_SEPARATOR . sprintf('%s/%s', $username, $repository);
         $this->run(sprintf('git checkout -qf %s', $build->getCommitSha()), $repoDir);
-        foreach (explode("\n", $build->getProject()->getConfiguration()) as $command) {
-            $this->run($command, $repoDir);
+
+        $config = $build->getProject()->getConfiguration();
+        if (!empty($config)) {
+            foreach (explode("\n", $config) as $command) {
+                $this->run($command, $repoDir);
+            }
         }
         $this->run(sprintf('rm -rf %s/%s', $username, $repository), $this->buildsDir);
 
@@ -79,7 +83,7 @@ class Executor
 
         $build->setOutput($this->output);
         $build->setFinishedAt(new \DateTime());
-        $build->setDuration((int) ($end - $start) / 1000);
+        $build->setDuration((int) ($end - $start));
         $build->setStatus(Build::STATUS_SUCCESS);
         $this->manager->persist($build);
         $this->manager->flush();

@@ -7,7 +7,7 @@
     <li><a href="#branches" data-toggle="tab">Branches</a></li>
     <li><a href="#profile" data-toggle="tab">Pull Requests</a></li>
     {% if build is defined %}
-    <li><a href="#build" data-toggle="tab">Build #{{ build.id }}</a></li>
+    <li><a href="#build{{ build.id }}" data-toggle="tab">Build #{{ build.id }}</a></li>
     {% endif %}
 </ul>
 <div id="myTabContent" class="tab-content">
@@ -15,7 +15,7 @@
         <h3>{{ project.username }}/{{ project.repository }}</h3>
 
         <h4>Build Configuration</h4>
-        <pre>{{ project.configuration }}</pre>
+        <pre class="prettyprint linenums languague-bash">{{ project.configuration }}</pre>
     </div>
 
     <div class="tab-pane fade" id="builds">
@@ -36,7 +36,7 @@
                         <td>{{ build.statusName }}</td>
 
                         <td>{{ build.commitSha }} ({{ build.branch }})</td>
-                        <td>{{ build.finishedAt|date }}</td>
+                        <td>{{ build.finishedAt|date }} - ({{ build.duration }} seconds)</td>
                     </tr>
                     {% endfor %}
                 </tbody>
@@ -99,8 +99,9 @@
     </div>
 
     {% if build is defined %}
-    <div class="tab-pane fade" id="build">
-        <pre>{{ build.output }}</pre>
+    <div class="tab-pane fade" id="build{{ build.id }}">
+        <h3>Build {{ build.id }}</h3>
+        <pre class="prettyprint linenums languague-bash">{{ build.output }}</pre>
     </div>
     {% endif %}
 </div>
