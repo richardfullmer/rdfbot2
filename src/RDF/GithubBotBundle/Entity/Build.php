@@ -29,7 +29,7 @@ class Build
     /**
      * @var Project
      *
-     * @ORM\ManyToOne(targetEntity="Project")
+     * @ORM\ManyToOne(targetEntity="Project", inversedBy="builds")
      */
     private $project;
 
