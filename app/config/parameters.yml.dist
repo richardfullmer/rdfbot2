@@ -13,3 +13,7 @@ parameters:
 
     locale:            en
     secret:            ThisTokenIsNotSoSecretChangeIt
+
+    # Github authentication
+    github.username:   username
+    github.password:   password

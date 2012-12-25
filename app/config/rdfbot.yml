@@ -1,0 +1,4 @@
+rdf_github_bot:
+    github:
+        username: %github.username%
+        password: %github.password%

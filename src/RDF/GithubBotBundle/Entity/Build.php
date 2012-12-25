@@ -7,11 +7,15 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Build
  *
- * @ORM\Table()
- * @ORM\Entity
+ * @ORM\Table(name="build")
+ * @ORM\Entity(repositoryClass="RDF\GithubBotBundle\Entity\Repository\BuildRepository")
  */
 class Build
 {
+    const STATUS_SUCCESS = 0;
+    const STATUS_FAILED = 1;
+    const STATUS_ERROR = 2;
+
     /**
      * @var integer
      *
@@ -22,11 +26,11 @@ class Build
     private $id;
 
     /**
-     * @var integer
+     * @var Project
      *
-     * @ORM\Column(name="Project", type="integer")
+     * @ORM\ManyToOne(targetEntity="Project")
      */
-    private $Project;
+    private $project;
 
     /**
      * @var integer
@@ -105,12 +109,12 @@ class Build
     /**
      * Set Project
      *
-     * @param integer $project
+     * @param Project $project
      * @return Build
      */
-    public function setProject($project)
+    public function setProject(Project $project)
     {
-        $this->Project = $project;
+        $this->project = $project;
     
         return $this;
     }
@@ -118,11 +122,11 @@ class Build
     /**
      * Get Project
      *
-     * @return integer 
+     * @return Project
      */
     public function getProject()
     {
-        return $this->Project;
+        return $this->project;
     }
 
     /**

@@ -7,8 +7,8 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Project
  *
- * @ORM\Table()
- * @ORM\Entity
+ * @ORM\Table(name="project")
+ * @ORM\Entity(repositoryClass="RDF\GithubBotBundle\Entity\Repository\ProjectRepository")
  */
 class Project
 {

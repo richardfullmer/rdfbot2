@@ -1,0 +1,66 @@
+{% extends 'RDFGithubBotBundle::layout.html.twig' %}
+
+{% block content_main %}
+<ul id="myTab" class="nav nav-tabs">
+    <li class="active"><a href="#current" data-toggle="tab">Current</a></li>
+    <li><a href="#branches" data-toggle="tab">Branches</a></li>
+    <li><a href="#profile" data-toggle="tab">Pull Requests</a></li>
+</ul>
+<div id="myTabContent" class="tab-content">
+    <div class="tab-pane fade in active" id="current">
+        <h3>{{ project.username }}/{{ project.repository }}</h3>
+    </div>
+
+    <div class="tab-pane fade" id="branches">
+        {% if branches|length > 0 %}
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Commit</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for branch in branches %}
+                    <tr>
+                        <td>{{ branch.name }}</td>
+                        <td>{{ branch.commit.sha }}</td>
+                        <td><a href="{{ path('rdf_githubbot_default_trigger', {'username': project.username, 'repository': project.repository}) }}">trigger build</a></td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+        <p>No branches</p>
+        {% endif %}
+    </div>
+
+    <div class="tab-pane fade" id="profile">
+        {% if pullRequests|length > 0 %}
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Summary</th>
+                        <th>Created</th>
+                        <th>Updated</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for pullRequest in pullRequests %}
+                    <tr>
+                        <td><a href="{{ pullRequest._links.html.href }}">#{{ pullRequest.number }}</a></td>
+                        <td>{{ pullRequest.title }}</td>
+                        <td>{{ pullRequest.created_at|date }}</td>
+                        <td>{{ pullRequest.updated_at|date }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+        <p>No pull requests</p>
+        {% endif %}
+    </div>
+</div>
+{% endblock content_main %}

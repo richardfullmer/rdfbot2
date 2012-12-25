@@ -1,0 +1,3 @@
+{% for project in projects %}
+<li><a href="{{ path('rdf_githubbot_default_project', {'username': project.username, 'repository': project.repository}) }}"><i class="icon-book"></i> {{ project.username }}/{{ project.repository }}</a></li>
+{% endfor  %}

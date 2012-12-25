@@ -1,5 +1,10 @@
-rdf_github_bot:
-    resource: "@RDFGithubBotBundle/Controller/"
+rdf_github_bot_project:
+    resource: "@RDFGithubBotBundle/Controller/ProjectController.php"
+    type:     annotation
+    prefix:   /
+
+rdf_github_bot_default:
+    resource: "@RDFGithubBotBundle/Controller/DefaultController.php"
     type:     annotation
     prefix:   /
 

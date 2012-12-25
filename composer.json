@@ -22,7 +22,8 @@
         "kriswallsmith/assetic": "1.1.*@dev",
         "mopa/bootstrap-bundle": "dev-master",
         "twitter/bootstrap": "*@stable",
-        "incenteev/composer-parameter-handler": "1.0.*@dev"
+        "incenteev/composer-parameter-handler": "1.0.*@dev",
+        "knplabs/github-api": "1.1.x-dev"
     },
     "scripts": {
         "post-install-cmd": [

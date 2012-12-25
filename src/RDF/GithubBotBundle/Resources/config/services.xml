@@ -4,17 +4,19 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
-    <!--
     <parameters>
-        <parameter key="rdf_github_bot.example.class">RDF\GithubBotBundle\Example</parameter>
+        <parameter key="rdf_github_bot.github.username"></parameter>
+        <parameter key="rdf_github_bot.github.password"></parameter>
     </parameters>
 
     <services>
-        <service id="rdf_github_bot.example" class="%rdf_github_bot.example.class%">
-            <argument type="service" id="service_id" />
-            <argument>plain_value</argument>
-            <argument>%parameter_name%</argument>
+        <service id="rdf_github_bot.github_client" class="Github\Client">
+            <call method="authenticate">
+                <argument>%rdf_github_bot.github.username%</argument>
+                <argument>%rdf_github_bot.github.password%</argument>
+                <argument type="constant">Github\Client::AUTH_HTTP_PASSWORD</argument>
+            </call>
         </service>
     </services>
-    -->
+
 </container>

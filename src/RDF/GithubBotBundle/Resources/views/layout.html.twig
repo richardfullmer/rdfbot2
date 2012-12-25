@@ -2,4 +2,117 @@
 
 {% block title %}RDF Github Bot{% endblock %}
 
-{# and define more blocks ... #}
+{% block head_style %}
+{% stylesheets filter='cssembed,?yui_css'
+    '@MopaBootstrapBundle/Resources/bootstrap/docs/assets/css/bootstrap.css'
+    '@MopaBootstrapBundle/Resources/bootstrap/docs/assets/css/bootstrap-responsive.css'
+%}
+<link href="{{ asset_url }}" type="text/css" rel="stylesheet" media="screen" />
+{% endstylesheets %}
+<style>
+body {
+    padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
+}
+</style>
+{% endblock head_style %}
+
+{% block page_header %}
+{# Overridden for now... #}
+{% endblock page_header %}
+
+{% block navbar %}
+<div class="navbar navbar-fixed-top">
+  <div class="navbar-inner">
+    <div class="{% block container_class %}container-fluid{% endblock container_class %}">
+
+      <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+      <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </a>
+
+      <!-- Be sure to leave the brand out there if you want it shown -->
+      <a class="brand" href="#">RDFBot</a>
+
+      <!-- Everything you want hidden at 940px or less, place within here -->
+      <div class="nav-collapse collapse">
+        <!-- .nav, .navbar-search, .navbar-form, etc -->
+      </div>
+
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block content %}
+<div class="span2">
+    {% block content_sidebar %}
+    <div class="well" style="padding: 8px 0;">
+        <ul class="nav nav-list">
+            <li class="nav-header">Projects</li>
+            <li class="divider"></li>
+            <li class="active"><a href="#"><i class="icon-home icon-white"></i> Home</a></li>
+            {% render "RDFGithubBotBundle:Default:projectList" %}
+
+            <li class="divider"></li>
+            <li><a class="btn" href="{{ path('admin_project_new') }}">New Project</a></li>
+        </ul>
+    </div>
+    {% endblock content_sidebar %}
+</div>
+<div class="span10">
+    {% block content_main %}
+    <ul id="myTab" class="nav nav-tabs">
+        <li class="active"><a href="#home" data-toggle="tab">Home</a></li>
+        <li><a href="#profile" data-toggle="tab">Profile</a></li>
+        <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a>
+            <ul class="dropdown-menu">
+                <li><a href="#dropdown1" data-toggle="tab">@fat</a></li>
+                <li><a href="#dropdown2" data-toggle="tab">@mdo</a></li>
+            </ul>
+        </li>
+    </ul>
+    <div id="myTabContent" class="tab-content">
+        <div class="tab-pane fade in active" id="home">
+            <p>Raw denim you probably haven't heard of them jean shorts Austin. Nesciunt tofu stumptown aliqua, retro synth master cleanse. Mustache cliche tempor, williamsburg carles vegan helvetica. Reprehenderit butcher retro keffiyeh dreamcatcher synth. Cosby sweater eu banh mi, qui irure terry richardson ex squid. Aliquip placeat salvia cillum iphone. Seitan aliquip quis cardigan american apparel, butcher voluptate nisi qui.</p>
+        </div>
+        <div class="tab-pane fade" id="profile">
+            <p>Food truck fixie locavore, accusamus mcsweeney's marfa nulla single-origin coffee squid. Exercitation +1 labore velit, blog sartorial PBR leggings next level wes anderson artisan four loko farm-to-table craft beer twee. Qui photo booth letterpress, commodo enim craft beer mlkshk aliquip jean shorts ullamco ad vinyl cillum PBR. Homo nostrud organic, assumenda labore aesthetic magna delectus mollit. Keytar helvetica VHS salvia yr, vero magna velit sapiente labore stumptown. Vegan fanny pack odio cillum wes anderson 8-bit, sustainable jean shorts beard ut DIY ethical culpa terry richardson biodiesel. Art party scenester stumptown, tumblr butcher vero sint qui sapiente accusamus tattooed echo park.</p>
+        </div>
+        <div class="tab-pane fade" id="dropdown1">
+            <p>Etsy mixtape wayfarers, ethical wes anderson tofu before they sold out mcsweeney's organic lomo retro fanny pack lo-fi farm-to-table readymade. Messenger bag gentrify pitchfork tattooed craft beer, iphone skateboard locavore carles etsy salvia banksy hoodie helvetica. DIY synth PBR banksy irony. Leggings gentrify squid 8-bit cred pitchfork. Williamsburg banh mi whatever gluten-free, carles pitchfork biodiesel fixie etsy retro mlkshk vice blog. Scenester cred you probably haven't heard of them, vinyl craft beer blog stumptown. Pitchfork sustainable tofu synth chambray yr.</p>
+        </div>
+        <div class="tab-pane fade" id="dropdown2">
+            <p>Trust fund seitan letterpress, keytar raw denim keffiyeh etsy art party before they sold out master cleanse gluten-free squid scenester freegan cosby sweater. Fanny pack portland seitan DIY, art party locavore wolf cliche high life echo park Austin. Cred vinyl keffiyeh DIY salvia PBR, banh mi before they sold out farm-to-table VHS viral locavore cosby sweater. Lomo wolf viral, mustache readymade thundercats keffiyeh craft beer marfa ethical. Wolf salvia freegan, sartorial keffiyeh echo park vegan.</p>
+        </div>
+    </div>
+    {% endblock content_main %}
+</div>
+{% endblock content %}
+
+{% block footer %}
+{# Footer #}
+{% endblock footer %}
+
+{% block foot_script %}
+    {%- javascripts filter='?yui_js'
+        'http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js'
+        '@MopaBootstrapBundle/Resources/bootstrap/docs/assets/js/bootstrap-transition.js'
+        '@MopaBootstrapBundle/Resources/bootstrap/docs/assets/js/bootstrap-modal.js'
+        '@MopaBootstrapBundle/Resources/bootstrap/docs/assets/js/bootstrap-dropdown.js'
+        '@MopaBootstrapBundle/Resources/bootstrap/docs/assets/js/bootstrap-scrollspy.js'
+        '@MopaBootstrapBundle/Resources/bootstrap/docs/assets/js/bootstrap-tab.js'
+        '@MopaBootstrapBundle/Resources/bootstrap/docs/assets/js/bootstrap-tooltip.js'
+        '@MopaBootstrapBundle/Resources/bootstrap/docs/assets/js/bootstrap-popover.js'
+        '@MopaBootstrapBundle/Resources/bootstrap/docs/assets/js/bootstrap-alert.js'
+        '@MopaBootstrapBundle/Resources/bootstrap/docs/assets/js/bootstrap-button.js'
+        '@MopaBootstrapBundle/Resources/bootstrap/docs/assets/js/bootstrap-collapse.js'
+        '@MopaBootstrapBundle/Resources/bootstrap/docs/assets/js/bootstrap-carousel.js'
+        '@MopaBootstrapBundle/Resources/bootstrap/docs/assets/js/bootstrap-typeahead.js'
+        '@MopaBootstrapBundle/Resources/public/js/mopabootstrap-collection.js'
+    %}
+    <script type="text/javascript" src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+{% endblock foot_script %}
