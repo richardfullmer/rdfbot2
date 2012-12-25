@@ -6,6 +6,9 @@
     <li><a href="#builds" data-toggle="tab">Builds</a></li>
     <li><a href="#branches" data-toggle="tab">Branches</a></li>
     <li><a href="#profile" data-toggle="tab">Pull Requests</a></li>
+    {% if build is defined %}
+    <li><a href="#build" data-toggle="tab">Build #{{ build.id }}</a></li>
+    {% endif %}
 </ul>
 <div id="myTabContent" class="tab-content">
     <div class="tab-pane fade in active" id="current">
@@ -94,5 +97,11 @@
         <p>No pull requests</p>
         {% endif %}
     </div>
+
+    {% if build is defined %}
+    <div class="tab-pane fade" id="build">
+        <pre>{{ build.output }}</pre>
+    </div>
+    {% endif %}
 </div>
 {% endblock content_main %}

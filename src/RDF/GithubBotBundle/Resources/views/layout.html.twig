@@ -33,7 +33,7 @@ body {
       </a>
 
       <!-- Be sure to leave the brand out there if you want it shown -->
-      <a class="brand" href="#">RDFBot</a>
+      <a class="brand" href="{{ path('rdf_githubbot_default_homepage') }}">RDFBot</a>
 
       <!-- Everything you want hidden at 940px or less, place within here -->
       <div class="nav-collapse collapse">
@@ -52,11 +52,9 @@ body {
         <ul class="nav nav-list">
             <li class="nav-header">Projects</li>
             <li class="divider"></li>
-            <li class="active"><a href="#"><i class="icon-home icon-white"></i> Home</a></li>
             {% render "RDFGithubBotBundle:Default:projectList" %}
-
             <li class="divider"></li>
-            <li><a class="btn" href="{{ path('admin_project_new') }}">New Project</a></li>
+            <li><a href="{{ path('admin_project_new') }}"><i class="icon-plus"></i> Track New Project</a></li>
         </ul>
     </div>
     {% endblock content_sidebar %}

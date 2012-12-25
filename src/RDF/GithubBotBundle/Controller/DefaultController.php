@@ -83,7 +83,7 @@ class DefaultController extends Controller
 
     /**
      * @Route("/{username}/{repository}/builds/{id}")
-     * @Template
+     * @Template("RDFGithubBotBundle:Default:project.html.twig")
      */
     public function buildAction($username, $repository, $id)
     {
@@ -100,8 +100,15 @@ class DefaultController extends Controller
             throw $this->createNotFoundException("Unknown build for this project");
         }
 
+        $client = $this->getGithubClient();
+
+        $pullRequests = $client->api('pull_request')->all($username, $repository);
+        $branches = $client->api('repos')->branches($username, $repository);
+
         return array(
             'project' => $project,
+            'pullRequests' => $pullRequests,
+            'branches' => $branches,
             'build' => $build
         );
     }

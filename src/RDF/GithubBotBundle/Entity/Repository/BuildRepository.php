@@ -6,19 +6,19 @@
 namespace RDF\GithubBotBundle\Entity\Repository;
 
 use RDF\GithubBotBundle\Entity\Project;
-use RDF\GithubBotBundle\Entity\Branch;
+use RDF\GithubBotBundle\Entity\Build;
 use Doctrine\ORM\EntityRepository;
 
 /**
  * @author Richard Fullmer <richard.fullmer@opensoftdev.com>
  */
-class BranchRepository extends EntityRepository
+class BuildRepository extends EntityRepository
 {
 
     /**
      * @param Project $project
      * @param integer $id
-     * @return null|Branch
+     * @return null|Build
      */
     public function findByProjectAndId(Project $project, $id)
     {
